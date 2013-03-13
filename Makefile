@@ -5,38 +5,33 @@ CC = g++
 
 BINDIR = .
 
-CFLAGS = -std=c++11 -I ../stpl
+CFLAGS = -g -std=c++11 -I ../stpl -fpermissive
 
 PROGRAMS = xml_corrector
 
 #SRCDIRS = $(SRCDIR:.c=.o)
-SOURCES = ${PROGRAMS:=.c}
+#SOURCES = ${PROGRAMS:=.cpp}
+
 OBJS = ${PROGRAMS:=.o}
 
-all: $(PROGRAMS)
+all : $(PROGRAMS)
 
-${PROGRAMS}:
-	$(CC) $(CFLAGS) $(SRCDIR)/$@.cpp -o $(BINDIR)/$@
+#${PROGRAMS} :
+#	$(CC) $(CFLAGS) $(SRCDIR)/$(SOURCES) -o $(BINDIR)/$@
 
-#%.o : %.c
-#	$(CC) -c -o $@ $(SRCDIR)/$< $(CFLAGS)
+xml_corrector: xml_corrector.o
+
+#%.o: %.cpp
+#	$(CC) $(CFLAGS) -c $< -o $@
 
 #$(PROGRAMS): $(OBJS)
 
-#.c.o: 
+#.cpp.o: 
 #	$(CC) -c -o $@ $(SRCDIR)/$< $(CFLAGS)
 #    $(CC) -c $(CFLAGS) $< 
     
-#char2utf8.c: char2utf8.o
-#    $(CC) $(CFLAGS) char2utf8.c $@ $<
-    
-#cp2utf8: cp2utf8.c
-#    $(CC) $(CFLAGS) cp2utf8.o -o $@ 
-    
-#utf82char: utf82char.c
-#    $(CC) $(CFLAGS) utf82char.o -o $@ 
-    
-#%.o:
+xml_corrector.o: $(SRCDIR)/xml_corrector.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
 #	mkdir -p $(OBJDIR)
 #	$(CC) $(CFLAGS) -o $@ $(SRCDIR)/$@.c
 #   $(CC) $(CFLAGS) -o $* $*.c
